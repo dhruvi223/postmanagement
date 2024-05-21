@@ -1,12 +1,14 @@
+// React imports
 import React from "react";
 import { useState } from "react";
+
+// mui imports
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import { useAuth } from "../AuthContext";
 import Link from "@mui/material/Link";
 import { useNavigate } from "react-router-dom";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -19,9 +21,19 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
+//context import for authentication
+import { useAuth } from "../context/AuthContext";
+
 export default function Navbar() {
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const [open2, setOpen2] = React.useState(false);
+  const [open2, setOpen2] = useState(false);
+
+  const navigate = useNavigate();
+  const auth = useAuth();
+
+  //loggedin status from local storage
+  const isloggedIn = JSON.parse(localStorage.getItem("isloggedIn"));
 
   const handleClickOpen = () => {
     setOpen2(true);
@@ -39,16 +51,10 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
-  const navigate = useNavigate();
-
-  const auth = useAuth();
-
+// logout
   const logout = () => {
     auth.logout(navigate);
   };
-
-  const loggedIn = auth.loggedIn;
-  console.log(loggedIn);
 
   return (
     <div>
@@ -59,7 +65,7 @@ export default function Navbar() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Post Management
             </Typography>
-            {loggedIn && (
+            {isloggedIn && (
               <div>
                 <IconButton
                   size="large"
@@ -86,7 +92,6 @@ export default function Navbar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {/* <Link to={'/viewcart'} > */}
                   <Link href="/posts" underline="none">
                     <MenuItem sx={{ color: "black" }} onClick={handleClose}>
                       Posts
@@ -119,7 +124,7 @@ export default function Navbar() {
               </div>
             )}
 
-            {!loggedIn && (
+            {!isloggedIn && (
               <Link href="/signin">
                 <Button sx={{ color: "white" }}>Login</Button>
               </Link>
@@ -144,7 +149,7 @@ export default function Navbar() {
               body: formJson.body,
               id: randompostId,
               title: formJson.title,
-              userId: randomuserId
+              userId: randomuserId,
             };
             const updatedPosts = [...posts, newPost];
             localStorage.setItem("posts", JSON.stringify(updatedPosts));

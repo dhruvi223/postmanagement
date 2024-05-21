@@ -8,7 +8,11 @@ export const emailMessages = {
     weak: "Password is weak (must contain at least one digit, one lowercase letter, one uppercase letter, and be between 8 and 32 characters)",
   };
 
+  export const mobileMessages = {
+    invalid : "Mobile number is invalid"
+  }
+
   export const name = {
-    firstname: "Please check the First Name",
-    lastname: "Please check the Last Name",
+    firstname: "Invalid First name",
+    lastname: "Invalid Last name",
   };

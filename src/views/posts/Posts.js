@@ -1,45 +1,26 @@
+// react imports
 import React from 'react'
-import { useEffect } from "react";
-import { fetchposts } from '../redux/action/postAction';
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// mui imports
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useNavigate } from "react-router-dom";
  
 
 function Posts() {
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [posts, setPosts] = useState([]);
 
+  // retriving all posts from localstorage to display 
   const posts2 = JSON.parse(localStorage.getItem('posts'));
   
-  useEffect(() => {
-    dispatch(fetchposts(setPosts));
-  }, []);
-
-  
-  
+  // navigating to detailed page of particular post
   const handleClick = (id) => {
     navigate("/postdetail", { state: { postid: id } });
   };
-  
-  const p = JSON.parse(localStorage.getItem('posts'));
-
-  useEffect(() => {
-  if(posts?.length > 0){
-   
-    if (p == null){
-      localStorage.setItem('posts', JSON.stringify(posts));
-
-    }
-  }
-}, [posts]);
 
   return (
     <div>

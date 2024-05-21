@@ -1,10 +1,15 @@
+// react imports
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { fetchalbums } from "../redux/action/postAction";
-import { fetchtodos } from "../redux/action/postAction";
 import { useDispatch } from "react-redux";
+
+//redux imports
+import { fetchalbums } from "../../redux/action/postAction";
+import { fetchtodos } from "../../redux/action/postAction";
+
+// mui imports
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
@@ -17,12 +22,17 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 export default function UserDetail() {
   const dispatch = useDispatch();
+
   const location = useLocation();
-  const userid = location.state.userid;
+  const user = location.state.user;
+  const userid = user.id;
+  const username = user.name;
 
   const [albums, setAlbums] = useState({});
   const [todos, setTodos] = useState({});
 
+
+  // fetching albums and todos for particular user(based on userId)
   useEffect(() => {
     dispatch(fetchalbums(setAlbums, userid));
     dispatch(fetchtodos(setTodos, userid));
@@ -31,15 +41,20 @@ export default function UserDetail() {
   return (
     <div>
       <Box sx={{ margin: 10 }}>
+
+        {/* displaying username */}
         <Typography
           gutterBottom
           variant="h5"
           component="div"
           sx={{ textAlign: "left" }}
         >
-          Username
+          {username}
         </Typography>
+
         <Box sx={{ display: "flex", flexDirection: "row", margin: 4 }}>
+
+        {/* displaying albums */}
           <Typography
             gutterBottom
             variant="h5"
@@ -63,6 +78,8 @@ export default function UserDetail() {
             </Grid>
           </ListItem>
 
+
+        {/* displaying todos */}
           <Typography
             gutterBottom
             variant="h5"
@@ -93,6 +110,7 @@ export default function UserDetail() {
               ))}
             </Grid>
           </ListItem>
+
         </Box>
       </Box>
     </div>

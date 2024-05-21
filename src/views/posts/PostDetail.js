@@ -1,7 +1,13 @@
+// react imports
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { fetchcomments } from "../redux/action/postAction";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+//redux import
+import { fetchcomments } from "../../redux/action/postAction";
+
+// mui imports
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -11,27 +17,26 @@ import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
-import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 
 function PostDetail() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const postid = location.state.postid;
 
-  const dispatch = useDispatch();
   const [comments, setComments] = useState({});
   const [open, setOpen] = React.useState(false);
 
+  // fetches comments based on post by postid(id) from api
   const handleComments = (id) => {
-    console.log(id);
     dispatch(fetchcomments(setComments, id));
   };
 
@@ -43,6 +48,7 @@ function PostDetail() {
     setOpen(false);
   };
 
+  //delete post from localstorage
   const handleDelete = (id) => {
     const posts = JSON.parse(localStorage.getItem("posts")) || [];
     const updatedPosts = posts.filter((post) => post.id !== id);
@@ -50,14 +56,15 @@ function PostDetail() {
     navigate("/posts");
   };
 
+  // retriving one post based on id from localstorage
   const posts = JSON.parse(localStorage.getItem("posts")) || [];
   const post2 = posts.find((post) => post.id === postid);
-  console.log(post2);
-  console.log(post2);
 
   return (
     <div>
-      <Card sx={{ width: 400, height: 'auto', margin: 10 }}>
+
+      {/* rendering post */}
+      <Card sx={{ width: 400, height: "auto", margin: 10 }}>
         <CardActionArea>
           <CardContent>
             <Typography
@@ -78,16 +85,15 @@ function PostDetail() {
           </CardContent>
         </CardActionArea>
 
-        <CardActions sx = {{display: 'flex', justifyContent: 'space-between'}}>
-
-        <Button
+        <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Button
             size="large"
             color="primary"
             onClick={() => {
               handleComments(post2.id);
             }}
           >
-            <ModeCommentOutlinedIcon sx={{ fontSize: 32 }}/>
+            <ModeCommentOutlinedIcon sx={{ fontSize: 32 }} />
           </Button>
           <Button
             size="large"
@@ -96,7 +102,7 @@ function PostDetail() {
               handleDelete(post2.id);
             }}
           >
-            <DeleteIcon sx={{ fontSize: 32 }}/>
+            <DeleteIcon sx={{ fontSize: 32 }} />
           </Button>
 
           <Button
@@ -106,11 +112,13 @@ function PostDetail() {
               handleUpdate(post2.id);
             }}
           >
-            <EditIcon sx={{ fontSize: 32 }}/>
+            <EditIcon sx={{ fontSize: 32 }} />
           </Button>
         </CardActions>
       </Card>
 
+
+{/* rendering comments for post */}
       <ListItem alignItems="flex-start" sx={{ width: 500 }}>
         <Grid container spacing={3} sx={{ p: 4, marginLeft: 5 }}>
           {Object.keys(comments).map((key) => (
@@ -149,6 +157,7 @@ function PostDetail() {
         </Grid>
       </ListItem>
 
+  {/* dialogue for editing post */}
       <Dialog
         open={open}
         onClose={handleClose}
