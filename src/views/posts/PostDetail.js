@@ -33,10 +33,12 @@ function PostDetail() {
   const postid = location.state.postid;
 
   const [comments, setComments] = useState({});
+  const [showComments, setShowComments] = useState(false);
   const [open, setOpen] = React.useState(false);
 
   // fetches comments based on post by postid(id) from api
   const handleComments = (id) => {
+    setShowComments(!showComments);
     dispatch(fetchcomments(setComments, id));
   };
 
@@ -119,6 +121,7 @@ function PostDetail() {
 
 
 {/* rendering comments for post */}
+{ showComments &&
       <ListItem alignItems="flex-start" sx={{ width: 500 }}>
         <Grid container spacing={3} sx={{ p: 4, marginLeft: 5 }}>
           {Object.keys(comments).map((key) => (
@@ -156,6 +159,7 @@ function PostDetail() {
           ))}
         </Grid>
       </ListItem>
+}
 
   {/* dialogue for editing post */}
       <Dialog
