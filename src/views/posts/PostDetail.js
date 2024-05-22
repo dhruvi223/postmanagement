@@ -27,6 +27,8 @@ import { grey } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const drawerBleeding = 56;
 
@@ -61,6 +63,11 @@ function PostDetail() {
   const [comments, setComments] = useState({});
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [isChecked, setIsChecked] = useState(() => {
+    const l = JSON.parse(localStorage.getItem('likedposts'));
+    const l2 = l.filter(l => (l.id == postid));
+    return l2.length == 0 ? false : true;
+  });
 
   // fetches comments based on post by postid(id) from api
   const toggleDrawer = (newOpen) => {
@@ -75,8 +82,8 @@ function PostDetail() {
     setOpen(false);
   };
 
-  console.log(comments.length);
-
+  
+  
   //delete post from localstorage
   const handleDelete = (id) => {
     const posts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -84,10 +91,26 @@ function PostDetail() {
     localStorage.setItem("posts", JSON.stringify(updatedPosts));
     navigate("/posts");
   };
-
+  
   // retriving one post based on id from localstorage
   const posts = JSON.parse(localStorage.getItem("posts")) || [];
   const post2 = posts.find((post) => post.id === postid);
+  
+  const handleChange = (event) => {
+    setIsChecked(event.target.checked);
+    
+    if (event.target.checked) {
+      const likedposts = JSON.parse(localStorage.getItem('likedposts'));
+      likedposts.push(post2);
+      localStorage.setItem('likedposts', JSON.stringify(likedposts));
+      // console.log('checked');
+    } else {
+      // console.log('not checked');
+      const likedposts = JSON.parse(localStorage.getItem('likedposts'));
+      const likedposts2 = likedposts.filter(post => post.id != postid);
+      localStorage.setItem('likedposts', JSON.stringify(likedposts2));
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchcomments(setComments, post2.id));
@@ -131,13 +154,16 @@ function PostDetail() {
         </CardActionArea>
 
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Button size="large" color="primary">
-            <FavoriteBorderIcon sx={{ fontSize: 32 }} />
-          </Button>
+          <Checkbox
+          checked={isChecked}
+          onChange={handleChange}
+            icon={<FavoriteBorderIcon sx={{fontSize: 32, color:'#9c27b0' }} />}
+            checkedIcon={<FavoriteIcon sx={{ color: "red", fontSize: 32 }} />}
+          />
 
           <Button
             size="large"
-            color="primary"
+            color="secondary"
             onClick={() => {
               toggleDrawer(true);
             }}
@@ -147,7 +173,7 @@ function PostDetail() {
 
           <Button
             size="large"
-            color="primary"
+            color="secondary"
             onClick={() => {
               handleUpdate(post2.id);
             }}
@@ -157,7 +183,7 @@ function PostDetail() {
 
           <Button
             size="large"
-            color="primary"
+            color="secondary"
             onClick={() => {
               handleDelete(post2.id);
             }}

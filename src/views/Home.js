@@ -23,13 +23,21 @@ export default function Home() {
   const p = JSON.parse(localStorage.getItem("posts"));
   useEffect(() => {
     if (posts?.length > 0) {
-      console.log(posts);
       if (p == null) {
-        console.log("yes");
         localStorage.setItem("posts", JSON.stringify(posts));
       }
     }
   }, [posts]);
+
+
+ const likedposts = JSON.parse(localStorage.getItem('likedposts'));
+ const l = [];
+ if (likedposts == null) {
+  localStorage.setItem('likedposts', JSON.stringify(l));
+ }
+
+
+  
 
   return (
     <Box

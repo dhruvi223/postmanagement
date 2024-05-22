@@ -6,8 +6,6 @@ import { fetchalbums } from "./postReducer";
 import { fetchtodos } from "./postReducer";
 
 const reducers = combineReducers({
-    // fetchbook : fetchbook,
-    // fetchonebook : fetchonebook
     fetchposts : fetchposts,
     fetchcomments : fetchcomments,
     fetchusers: fetchusers,

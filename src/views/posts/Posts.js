@@ -20,11 +20,11 @@ function Posts() {
     navigate("/postdetail", { state: { postid: id } });
   };
 
-  const colors = ["#00bcd4", "#424242"];
+  const colors = ["#00bcd4"];
 
   return (
     <div>
-      <Grid container spacing={5} sx={{ p: 4, marginLeft: 5 }}>
+      <Grid container spacing={5} sx={{ p: 4, marginLeft: 3 }}>
         {Object.keys(posts2).map((key) => (
           <div key={posts2[key].id}>
             <Grid>
@@ -34,6 +34,7 @@ function Posts() {
                   height: 180,
                   border: 1,
                   borderColor: colors[key % colors.length],
+                  padding: 1
                 }}
               >
                 <CardActionArea>

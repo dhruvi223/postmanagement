@@ -39,7 +39,9 @@ export default function Signin() {
 
   // login 
   const onSubmit = async (data) => {
-    auth.login(data.email, data.password, navigate);
+    const email = data.email;
+    const password = data.password
+    auth.login(email, password, navigate);
   };
 
   return (
