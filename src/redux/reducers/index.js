@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import { fetchposts } from "./bookReducer";
-import { fetchcomments } from "./bookReducer";
-import { fetchusers } from "./bookReducer";
-import { fetchalbums } from "./bookReducer";
-import { fetchtodos } from "./bookReducer";
+import { fetchposts } from "./postReducer";
+import { fetchcomments } from "./postReducer";
+import { fetchusers } from "./postReducer";
+import { fetchalbums } from "./postReducer";
+import { fetchtodos } from "./postReducer";
 
 const reducers = combineReducers({
     // fetchbook : fetchbook,

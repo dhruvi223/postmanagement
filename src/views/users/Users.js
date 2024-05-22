@@ -41,7 +41,6 @@ export default function Users() {
 
   return (
     <div>
-
       {/* displaying users */}
       <Grid container spacing={6} pl={3} pt={3}>
         {Object.keys(users).map((key) => (
@@ -135,7 +134,7 @@ export default function Users() {
                   size="small"
                   color="primary"
                   onClick={() => {
-                    handleClick({id : users[key].id, name: users[key].name});
+                    handleClick({ id: users[key].id, name: users[key].name });
                   }}
                 >
                   View User

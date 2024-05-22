@@ -1,7 +1,7 @@
 import "./App.css";
 
 // react imports
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 // component imports
@@ -14,6 +14,8 @@ import Users from "./views/users/Users";
 import UserDetail from "./views/users/UserDetail";
 import Home from "./views/Home";
 
+const isLoggedIn = JSON.parse(localStorage.getItem("isloggedIn"));
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,10 +25,38 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/postdetail" element={<PostDetail />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/userdetail" element={<UserDetail />} />
+          <Route
+            path="/posts"
+            element={
+              isLoggedIn ? <Posts /> : <Navigate to="/signin" replace={true} />
+            }
+          />
+          <Route
+            path="/postdetail"
+            element={
+              isLoggedIn ? (
+                <PostDetail />
+              ) : (
+                <Navigate to="/signin" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              isLoggedIn ? <Users /> : <Navigate to="/signin" replace={true} />
+            }
+          />
+          <Route
+            path="/userdetail"
+            element={
+              isLoggedIn ? (
+                <UserDetail />
+              ) : (
+                <Navigate to="/signin" replace={true} />
+              )
+            }
+          />
           <Route path="/" element={<Home />} />
         </Routes>
       </div>

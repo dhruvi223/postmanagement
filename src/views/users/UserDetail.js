@@ -31,7 +31,6 @@ export default function UserDetail() {
   const [albums, setAlbums] = useState({});
   const [todos, setTodos] = useState({});
 
-
   // fetching albums and todos for particular user(based on userId)
   useEffect(() => {
     dispatch(fetchalbums(setAlbums, userid));
@@ -41,8 +40,7 @@ export default function UserDetail() {
   return (
     <div>
       <Box sx={{ margin: 10 }}>
-
-        {/* displaying username */}
+        {/* Displaying username */}
         <Typography
           gutterBottom
           variant="h5"
@@ -52,65 +50,97 @@ export default function UserDetail() {
           {username}
         </Typography>
 
-        <Box sx={{ display: "flex", flexDirection: "row", margin: 4 }}>
-
-        {/* displaying albums */}
+        <Box>
+          {/* Displaying albums */}
           <Typography
             gutterBottom
             variant="h5"
             component="div"
-            sx={{ textAlign: "left" }}
+            sx={{ textAlign: "left", marginTop: 8 }}
           >
             Albums
           </Typography>
-          <ListItem alignItems="flex-start" sx={{ width: 500, marginTop: 5 }}>
-            <Grid container spacing={3} sx={{ p: 4, marginLeft: 5 }}>
-              {Object.keys(albums).map((key) => (
-                <div key={albums[key].id}>
-                  <Grid item xs={12}>
-                    <List>
-                      <ListItemText primary={albums[key].title} />
-                      <Divider />
-                    </List>
-                  </Grid>
-                </div>
-              ))}
-            </Grid>
-          </ListItem>
+          <List
+            sx={{
+              width: "full",
+              display: "grid",
+              gridTemplateColumns: "repeat(5, 1fr)",
+              gap: 2,
+              marginTop: 2,
+            }}
+          >
+            {Object.values(albums).map((album) => (
+              <div key={album.id}>
+                <ListItem disablePadding>
+                  <Box
+                    sx={{
+                      width: 400,
+                      height: 70,
+                      borderRadius: 1,
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                      padding: 2,
+                      backgroundColor: "background.paper",
+                    }}
+                  >
+                    <ListItemText
+                      primary={
+                        <Typography variant="body1" sx={{ fontSize: "1.2rem" }}>
+                          {album.title}
+                        </Typography>
+                      }
+                    />
+                  </Box>
+                </ListItem>
+              </div>
+            ))}
+          </List>
 
-
-        {/* displaying todos */}
+          {/* Displaying todos */}
           <Typography
             gutterBottom
             variant="h5"
             component="div"
-            sx={{ textAlign: "left" }}
+            sx={{ textAlign: "left", marginTop: 8 }}
           >
             Todos
           </Typography>
+          <List
+            sx={{
+              width: "full",
+              display: "grid",
+              gridTemplateColumns: "repeat(5, 1fr)",
+              gap: 2,
+              marginTop: 2,
+            }}
+          >
+            {Object.values(todos).map((todo) => (
+              <div key={todo.id}>
+                <ListItem disablePadding>
+                  <Box
+                    sx={{
+                      width: 400,
+                      height: 70,
+                      borderRadius: 1,
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                      padding: 2,
+                      backgroundColor: "background.paper",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <TaskAltIcon
+                        color={todo.completed ? "success" : "warning"}
+                      />
+                    </ListItemIcon>
 
-          <ListItem alignItems="flex-start" sx={{ width: 500, marginTop: 5 }}>
-            <Grid container spacing={3} sx={{ p: 4, marginLeft: 5 }}>
-              {Object.keys(todos).map((key) => (
-                <div key={todos[key].id}>
-                  <Grid item xs={12}>
-                    <List>
-                      <div style={{ display: "flex", flexDirection: "row" }}>
-                        <ListItemText primary={todos[key].title} />
-                        {todos[key].completed == true && (
-                          <ListItemIcon sx={{ marginLeft: 2 }}>
-                            <TaskAltIcon />
-                          </ListItemIcon>
-                        )}
-                      </div>
-                      <Divider />
-                    </List>
-                  </Grid>
-                </div>
-              ))}
-            </Grid>
-          </ListItem>
-
+                    <ListItemText primary={todo.title} />
+                  </Box>
+                </ListItem>
+                {/* <Divider /> */}
+              </div>
+            ))}
+          </List>
         </Box>
       </Box>
     </div>

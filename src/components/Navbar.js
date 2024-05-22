@@ -114,7 +114,7 @@ export default function Navbar() {
                   <MenuItem onClick={handleClose}>
                     {" "}
                     <Button
-                      sx={{ color: "black", paddingLeft: 0 }}
+                      sx={{ color: "black", paddingLeft: 0, width: 150, marginLeft: 0 }}
                       onClick={logout}
                     >
                       Logout
@@ -157,7 +157,7 @@ export default function Navbar() {
           },
         }}
       >
-        <DialogTitle>Create List</DialogTitle>
+        <DialogTitle>Create Post</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -175,7 +175,7 @@ export default function Navbar() {
             margin="dense"
             id="body"
             name="body"
-            label="Body"
+            label="Description"
             fullWidth
             variant="standard"
           />

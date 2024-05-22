@@ -11,7 +11,6 @@ export const fetchposts = (setPosts) => {
   };
 };
 
-
 export const fetchcomments = (setComments, id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.FETCHCOMMENTS });
@@ -22,35 +21,32 @@ export const fetchcomments = (setComments, id) => {
   };
 };
 
-
-
-
 export const fetchusers = (setUsers) => {
-    return async (dispatch) => {
-      dispatch({ type: ActionTypes.FETCHUSERS });
-      axios
-        .get("https://jsonplaceholder.typicode.com/users")
-        .then((data) => setUsers(data.data))
-        .catch((error) => console.log(error));
-    };
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.FETCHUSERS });
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((data) => setUsers(data.data))
+      .catch((error) => console.log(error));
   };
+};
 
-  export const fetchalbums = (setAlbums, id) => {
-    return async (dispatch) => {
-      dispatch({ type: ActionTypes.FETCHALBUMS });
-      axios
-        .get(`https://jsonplaceholder.typicode.com/users/${id}/albums`)
-        .then((data) => setAlbums(data.data))
-        .catch((error) => console.log(error));
-    };
+export const fetchalbums = (setAlbums, id) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.FETCHALBUMS });
+    axios
+      .get(`https://jsonplaceholder.typicode.com/users/${id}/albums`)
+      .then((data) => setAlbums(data.data))
+      .catch((error) => console.log(error));
   };
-  
-  export const fetchtodos = (setTodos, id) => {
-    return async (dispatch) => {
-      dispatch({ type: ActionTypes.FETCHTODOS});
-      axios
-        .get(`https://jsonplaceholder.typicode.com/users/${id}/todos`)
-        .then((data) => setTodos(data.data))
-        .catch((error) => console.log(error));
-    };
+};
+
+export const fetchtodos = (setTodos, id) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.FETCHTODOS });
+    axios
+      .get(`https://jsonplaceholder.typicode.com/users/${id}/todos`)
+      .then((data) => setTodos(data.data))
+      .catch((error) => console.log(error));
   };
+};

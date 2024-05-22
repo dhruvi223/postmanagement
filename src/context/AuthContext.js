@@ -22,15 +22,11 @@ if (l == null) {
 export const AuthProvider = ({ children }) => {
   // login
   const login = (email, password, navigate) => {
-    const userData = localStorage.getItem("users");
-    const userDataj = JSON.parse(userData);
-    console.log(userDataj);
-    const user = userDataj.find((user) => user.email === email);
-    console.log(user);
+    const userData = JSON.parse(localStorage.getItem("users"));
+    const user = userData.find((user) => user.email === email);
 
     if (user !== null && user != undefined) {
       const result = bcrypt.compareSync(password, user.password);
-      console.log(result);
       if (result) {
         const loggedInuser = {
           email: email,
@@ -70,7 +66,6 @@ export const AuthProvider = ({ children }) => {
       if (user === undefined) {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
-        console.log(hashedPassword);
         let usersData = JSON.parse(localStorage.getItem("users"));
         usersData.push({
           firstname: firstname,
@@ -91,7 +86,6 @@ export const AuthProvider = ({ children }) => {
         navigate("/signin");
       } else {
         toast.error("user is already registered");
-        console.log("not");
       }
     } else {
       toast.error(`password and confirm password doesn't match`);

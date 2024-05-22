@@ -14,14 +14,12 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
 
-// fetching posts from api
+  // fetching posts from api
   useEffect(() => {
     dispatch(fetchposts(setPosts));
   }, []);
 
-
-
-/* retrives posts from localstorage and sets posts in localstorage if it is null(not already set in localstorage). */
+  /* retrives posts from localstorage and sets posts in localstorage if it is null(not already set in localstorage). */
   const p = JSON.parse(localStorage.getItem("posts"));
   useEffect(() => {
     if (posts?.length > 0) {
@@ -32,8 +30,6 @@ export default function Home() {
       }
     }
   }, [posts]);
-
-
 
   return (
     <Box
