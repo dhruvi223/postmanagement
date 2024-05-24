@@ -14,6 +14,7 @@ import Users from "./views/users/Users";
 import UserDetail from "./views/users/UserDetail";
 import Home from "./views/Home";
 
+
 const isLoggedIn = JSON.parse(localStorage.getItem("isloggedIn"));
 
 function App() {
@@ -23,8 +24,12 @@ function App() {
       <Navbar />
       <div className="App">
         <Routes>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={
+              !isLoggedIn ? <Signup /> : <Navigate to="/" replace={true} />
+            } />
+          <Route path="/signin" element={
+              !isLoggedIn ? <Signin /> : <Navigate to="/" replace={true} />
+            } />
           <Route
             path="/posts"
             element={

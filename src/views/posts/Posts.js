@@ -24,29 +24,32 @@ function Posts() {
 
   return (
     <div>
-      <Grid container spacing={5} sx={{ p: 4, marginLeft: 3 }}>
+      <Grid container spacing={5} sx={{ p: 4, marginLeft: 2, overflow: 'hidden', width: '190vh'}}>
         {Object.keys(posts2).map((key) => (
           <div key={posts2[key].id}>
             <Grid>
               <Card
                 sx={{
-                  width: 400,
+                  width: 300,
                   height: 180,
                   border: 1,
                   borderColor: colors[key % colors.length],
-                  padding: 1
+                  padding: 1,
+                  display: 'flex',
+                  flexDirection:'column',
+                  justifyContent: 'space-around'
                 }}
               >
                 <CardActionArea>
                   <CardContent>
                     <Typography
                       gutterBottom
-                      variant="h5"
+                      variant="h6"
                       component="div"
                       sx={{ textAlign: "left" }}
                     >
-                      {posts2[key].title.charAt(0).toUpperCase() +
-                        posts2[key].title.slice(1)}
+                      {(posts2[key].title.charAt(0).toUpperCase() +
+                        posts2[key].title.slice(1)).slice(0,70)}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

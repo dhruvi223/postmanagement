@@ -1,3 +1,6 @@
+import image from '../../assets/bgimage.jpeg'
+import bgimage from '../../assets/socialmedia.webp'
+
 // react imports
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -30,6 +33,7 @@ import {
 
 // context import for sign up
 import { useAuth } from "../../context/AuthContext";
+import { Image } from "@mui/icons-material";
 
 export default function Signup() {
   const auth = useAuth();
@@ -55,8 +59,12 @@ export default function Signup() {
   };
 
   return (
-    <div>
-      <Container component="main" maxWidth="xs">
+    <Box sx = {{ display:'flex', flexDirection:'row', height: '93vh'}}>
+      <Box sx={{height:'94.8vh',width: {xl: '75%',lg: "60%" ,md: '50%', sm: '0%', xs: '0%'},backgroundImage:`url(${bgimage})`, backgroundRepeat:'no-repeat', backgroundSize: 'cover'}}>
+       {/* <Box component="img" src = {bgimage}  sx = {{width: 1800, height:1171, opacity: { xl: 1, md: 0.2, sm: 0.2, xs: 0.2 }}}></Box> */}
+      </Box>
+    <Box sx={{width:{xl:'25%', lg: "40%" ,md: '50%', sm: '100%', xs: '100%'}, height: '500px'}}>
+      <Container component="main" sx = {{width: 450, marginTop: 0, paddingTop:20}}>
         <CssBaseline />
         <Box
           sx={{
@@ -226,6 +234,7 @@ export default function Signup() {
           </Box>
         </Box>
       </Container>
-    </div>
+    </Box>
+    </Box>
   );
 }

@@ -1,3 +1,5 @@
+import bgimg from '../../assets/socialmedia.webp'
+
 //react imports
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -24,6 +26,7 @@ import {
 
 // context import for signin
 import { useAuth } from "../../context/AuthContext";
+import { Repeat } from '@mui/icons-material';
 
 const defaultTheme = createTheme();
 
@@ -45,8 +48,23 @@ export default function Signin() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+    <Box sx = {{}}>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage: `url(${bgimg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          opacity: 0.7, 
+          zIndex: -1, 
+        }}
+      />
+      <Container component="main" maxWidth="xs" sx = {{backgroundColor: 'white', border:0, borderRadius:2, paddingTop:1 ,paddingBottom: 4, marginTop:20}} >
         <CssBaseline />
         <Box
           sx={{
@@ -124,6 +142,6 @@ export default function Signin() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </Box>
   );
 }
